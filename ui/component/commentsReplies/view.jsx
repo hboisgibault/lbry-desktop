@@ -7,6 +7,7 @@ import Spinner from 'component/spinner';
 
 type Props = {
   fetchedReplies: Array<any>,
+  unresolvedReplies: Array<string>,
   uri: string,
   parentId: string,
   claimIsMine: boolean,
@@ -18,6 +19,7 @@ type Props = {
   isFetchingByParentId: { [string]: boolean },
   hasMore: boolean,
   supportDisabled: boolean,
+  doResolveUris: (Array<string>) => void,
   onShowMore?: () => void,
 };
 
@@ -26,6 +28,7 @@ function CommentsReplies(props: Props) {
     uri,
     parentId,
     fetchedReplies,
+    unresolvedReplies,
     claimIsMine,
     myChannels,
     linkedCommentId,
@@ -35,10 +38,16 @@ function CommentsReplies(props: Props) {
     isFetchingByParentId,
     hasMore,
     supportDisabled,
+    doResolveUris,
     onShowMore,
   } = props;
 
   const [isExpanded, setExpanded] = React.useState(true);
+
+  // Batch resolve reply channel urls
+  React.useEffect(() => {
+    if (unresolvedReplies && unresolvedReplies.length > 0) doResolveUris(unresolvedReplies);
+  }, [unresolvedReplies, doResolveUris]);
 
   return !numDirectReplies ? null : (
     <div className="comment__replies-container">
