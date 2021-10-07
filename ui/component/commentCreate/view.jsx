@@ -22,6 +22,8 @@ import type { ElementRef } from 'react';
 import UriIndicator from 'component/uriIndicator';
 import usePersistedState from 'effects/use-persisted-state';
 import WalletTipAmountSelector from 'component/walletTipAmountSelector';
+import OptimizedImage from 'component/optimizedImage';
+import * as MODALS from 'constants/modal_types';
 
 import { getStripeEnvironment } from 'util/stripe';
 let stripeEnvironment = getStripeEnvironment();
@@ -47,6 +49,8 @@ type Props = {
   supportDisabled: boolean,
   settingsByChannelId: { [channelId: string]: PerChannelSettings },
   shouldFetchComment: boolean,
+  testStickers: Array<string>,
+  setTestStickers: (any) => void,
   doToast: ({ message: string }) => void,
   createComment: (string, string, string, ?string, ?string, ?string) => Promise<any>,
   onDoneReplying?: () => void,
@@ -56,6 +60,7 @@ type Props = {
   doFetchCreatorSettings: (channelId: string) => Promise<any>,
   setQuickReply: (any) => void,
   fetchComment: (commentId: string) => Promise<any>,
+  doOpenModal: (any, any) => void,
 };
 
 export function CommentCreate(props: Props) {
@@ -75,6 +80,7 @@ export function CommentCreate(props: Props) {
     settingsByChannelId,
     supportDisabled,
     shouldFetchComment,
+    setTestStickers,
     doToast,
     createComment,
     onDoneReplying,
@@ -83,6 +89,7 @@ export function CommentCreate(props: Props) {
     doFetchCreatorSettings,
     setQuickReply,
     fetchComment,
+    doOpenModal,
   } = props;
   const formFieldRef: ElementRef<any> = React.useRef();
   const formFieldInputRef = formFieldRef && formFieldRef.current && formFieldRef.current.input;
@@ -98,6 +105,8 @@ export function CommentCreate(props: Props) {
   const [successTip, setSuccessTip] = React.useState({ txid: undefined, tipAmount: undefined });
   const [isSupportComment, setIsSupportComment] = React.useState();
   const [isReviewingSupportComment, setIsReviewingSupportComment] = React.useState();
+  const [isReviewingStickerComment, setIsReviewingStickerComment] = React.useState();
+  const [selectedSticker, setSelectedSticker] = React.useState();
   const [tipAmount, setTipAmount] = React.useState(1);
   const [commentValue, setCommentValue] = React.useState('');
   const [advancedEditor, setAdvancedEditor] = usePersistedState('comment-editor-mode', false);
@@ -507,6 +516,42 @@ export function CommentCreate(props: Props) {
     );
   }
 
+  if (isReviewingStickerComment && activeChannelClaim) {
+    return (
+      <div className="comment__create">
+        <div className="comment__sticker-preview">
+          <ChannelThumbnail xsmall uri={activeChannelClaim.canonical_url} />
+          <div className="comment__sticker-preview--image">
+            <UriIndicator uri={activeChannelClaim.name} link />
+            <OptimizedImage src={selectedSticker} />
+          </div>
+        </div>
+        <div className="section__actions--no-margin">
+          <Button
+            button="primary"
+            label={__('Send')}
+            onClick={() => {
+              setTestStickers({
+                sticker: selectedSticker,
+                channel_url: activeChannelClaim.canonical_url,
+                channel_id: activeChannelClaim.claim_id,
+              });
+              setIsReviewingStickerComment(false);
+            }}
+          />
+          <Button
+            button="link"
+            label={__('Cancel')}
+            onClick={() => {
+              setIsReviewingStickerComment(false);
+              setSelectedSticker(null);
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Form
       onSubmit={handleSubmit}
@@ -646,6 +691,15 @@ export function CommentCreate(props: Props) {
         )}
         {deletedComment && <div className="error__text">{__('This comment has been deleted.')}</div>}
         {MinAmountNotice}
+
+        {/* !!! STICKERS !!! */}
+        <Button
+          button="alt"
+          className="button--file-action"
+          onClick={() => doOpenModal(MODALS.LIVE_PICKER, { setIsReviewingStickerComment, setSelectedSticker })}
+          icon={ICONS.CHEESE}
+        />
+        {/* !!! STICKERS !!! */}
       </div>
     </Form>
   );

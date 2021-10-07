@@ -12,6 +12,7 @@ import CommentMenuList from 'component/commentMenuList';
 import Button from 'component/button';
 import CreditAmount from 'component/common/credit-amount';
 import useHover from 'effects/use-hover';
+import OptimizedImage from 'component/optimizedImage';
 
 type Props = {
   uri: string,
@@ -19,6 +20,7 @@ type Props = {
   authorUri: string,
   commentId: string,
   message: string,
+  sticker: string,
   commentIsMine: boolean,
   stakedLevel: number,
   supportAmount: number,
@@ -34,6 +36,7 @@ function LivestreamComment(props: Props) {
     uri,
     authorUri,
     message,
+    sticker,
     commentIsMine,
     commentId,
     stakedLevel,
@@ -54,6 +57,7 @@ function LivestreamComment(props: Props) {
       className={classnames('livestream-comment', {
         'livestream-comment--superchat': supportAmount > 0,
         'livestream-comment--hover': isHovering,
+        'livestream-comment--sticker': Boolean(sticker),
       })}
       ref={commentRef}
     >
@@ -65,7 +69,7 @@ function LivestreamComment(props: Props) {
       )}
 
       <div className="livestream-comment__body">
-        {supportAmount > 0 && <ChannelThumbnail uri={authorUri} xsmall />}
+        {(supportAmount > 0 || Boolean(sticker)) && <ChannelThumbnail uri={authorUri} xsmall />}
         <div className="livestream-comment__info">
           {isGlobalMod && (
             <Tooltip label={__('Admin')}>
@@ -108,9 +112,15 @@ function LivestreamComment(props: Props) {
             </span>
           )}
 
-          <div className="livestream-comment__text">
-            <MarkdownPreview content={message} promptLinks stakedLevel={stakedLevel} />
-          </div>
+          {message ? (
+            <div className="livestream-comment__text">
+              <MarkdownPreview content={message} promptLinks stakedLevel={stakedLevel} />
+            </div>
+          ) : (
+            <div className="livestream-comment__text-sticker">
+              <OptimizedImage src={sticker} />
+            </div>
+          )}
         </div>
       </div>
 

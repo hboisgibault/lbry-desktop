@@ -17,6 +17,7 @@ type ModalProps = {
   onConfirmed?: (any) => any,
   onAborted?: (any) => any,
   className?: string,
+  overlayClassName?: string,
   children?: React.Node,
   extraContent?: React.Node,
   expandButtonLabel?: string,
@@ -35,6 +36,7 @@ export function Modal(props: ModalProps) {
     abortButtonDisabled = false,
     onAborted,
     className,
+    overlayClassName,
     title,
     ...modalProps
   } = props;
@@ -48,7 +50,7 @@ export function Modal(props: ModalProps) {
       className={classnames('modal', className, {
         'modal--card-internal': type === 'card',
       })}
-      overlayClassName="modal-overlay"
+      overlayClassName={classnames('modal-overlay', overlayClassName)}
     >
       {title && <h1 className="card__title card__title--deprecated">{title}</h1>}
       {type === 'card' && (

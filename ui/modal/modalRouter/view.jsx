@@ -74,6 +74,9 @@ const ModalRemoveFile = lazyImport(() => import('modal/modalRemoveFile' /* webpa
 const ModalRevokeClaim = lazyImport(() => import('modal/modalRevokeClaim' /* webpackChunkName: "modalRevokeClaim" */));
 const ModalRewardCode = lazyImport(() => import('modal/modalRewardCode' /* webpackChunkName: "modalRewardCode" */));
 const ModalSendTip = lazyImport(() => import('modal/modalSendTip' /* webpackChunkName: "modalSendTip" */));
+const ModalLiveChatPicker = lazyImport(() =>
+  import('modal/modalLiveChatPicker' /* webpackChunkName: "modalLiveChatPicker" */)
+);
 const ModalSetReferrer = lazyImport(() => import('modal/modalSetReferrer' /* webpackChunkName: "modalSetReferrer" */));
 const ModalSignOut = lazyImport(() => import('modal/modalSignOut' /* webpackChunkName: "modalSignOut" */));
 const ModalSocialShare = lazyImport(() => import('modal/modalSocialShare' /* webpackChunkName: "modalSocialShare" */));
@@ -152,6 +155,8 @@ function ModalRouter(props: Props) {
         return ModalFirstSubscription;
       case MODALS.SEND_TIP:
         return ModalSendTip;
+      case MODALS.LIVE_PICKER:
+        return ModalLiveChatPicker;
       case MODALS.SOCIAL_SHARE:
         return ModalSocialShare;
       case MODALS.PUBLISH:

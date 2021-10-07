@@ -311,6 +311,49 @@ $actions-z-index: 2;
   }
 }
 
+.stickers__list {
+  animation: menu-animate-in var(--animation-duration) var(--animation-style);
+  border-radius: var(--border-radius);
+  height: 25vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  .stickers__row {
+    padding: var(--spacing-s);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .stickers__items {
+    @extend .stickers__list;
+    height: unset;
+    overflow: visible;
+  }
+
+  .button--file-action {
+    width: 5rem;
+    height: 5rem;
+    overflow: hidden;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+    }
+
+    .channel__list-item {
+      border-left: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+    }
+
+    &[data-selected] {
+      .channel__list-item,
+      .channel-staked__wrapper {
+        background-color: var(--color-card-background-highlighted);
+      }
+    }
+  }
+}
+
 .channel__list-item {
   display: flex;
   align-items: center;

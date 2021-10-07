@@ -376,6 +376,25 @@ $recent-msg-button__height: 2rem;
   }
 }
 
+.livestream-comment--sticker {
+  background-color: var(--color-card-background-highlighted);
+}
+
+.livestream-comment__text-sticker {
+  margin-left: var(--spacing-xl);
+  height: 12rem;
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+  }
+}
+
 .livestream-superchat__tooltip-amount {
   margin-top: var(--spacing-xs);
   margin-left: 0;

@@ -221,6 +221,13 @@
 .card__title-actions {
   align-self: flex-start;
 
+  .button--file-action {
+    display: inline-block;
+    width: 5rem;
+    height: 5rem;
+    font-size: var(--font-xsmall);
+  }
+
   @media (min-width: $breakpoint-small) {
     padding: var(--spacing-s);
   }

@@ -11,6 +11,7 @@ import { selectActiveChannelClaim } from 'redux/selectors/app';
 import { selectSettingsByChannelId } from 'redux/selectors/comments';
 import { CommentCreate } from './view';
 import { doToast } from 'redux/actions/notifications';
+import { doOpenModal } from 'redux/actions/app';
 
 const select = (state, props) => ({
   claim: makeSelectClaimForUri(props.uri)(state),
@@ -39,6 +40,7 @@ const perform = (dispatch, ownProps) => ({
   doToast: (options) => dispatch(doToast(options)),
   doFetchCreatorSettings: (channelClaimId) => dispatch(doFetchCreatorSettings(channelClaimId)),
   fetchComment: (commentId) => dispatch(doCommentById(commentId, false)),
+  doOpenModal: (modal, props) => dispatch(doOpenModal(modal, props)),
 });
 
 export default connect(select, perform)(CommentCreate);

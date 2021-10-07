@@ -14,6 +14,9 @@ import Button from 'component/button';
 import FileDescription from 'component/fileDescription';
 import usePersistedState from 'effects/use-persisted-state';
 import { ENABLE_MATURE } from 'config';
+import OptimizedImage from 'component/optimizedImage';
+import { STICKERS } from 'component/commentCreate/Stickers_part1/stickers';
+import LbcSymbol from 'component/common/lbc-symbol';
 
 type Props = {
   uri: string,
@@ -74,7 +77,34 @@ function FileTitleSection(props: Props) {
             )}
           </React.Fragment>
         }
-        titleActions={<FilePrice uri={normalizeURI(uri)} type="filepage" />}
+        titleActions={
+          livestream ? (
+            <>
+              <div className="button--file-action">
+                <OptimizedImage src={STICKERS[4][1]['SMALL_TIP']} />
+                <LbcSymbol postfix={'1'} size={14} />
+              </div>
+              <div className="button--file-action">
+                <OptimizedImage src={STICKERS[4][2]['MEDIUM_TIP']} />
+                <LbcSymbol postfix={'1~50'} size={14} />
+              </div>
+              <div className="button--file-action">
+                <OptimizedImage src={STICKERS[4][3]['LARGE_TIP']} />
+                <LbcSymbol postfix={'50~100'} size={14} />
+              </div>
+              <div className="button--file-action">
+                <OptimizedImage src={STICKERS[4][4]['BIG_TIP']} />
+                <LbcSymbol postfix={'100~200'} size={14} />
+              </div>
+              <div className="button--file-action">
+                <OptimizedImage src={STICKERS[4][5]['FORTUNE_CHEST']} />
+                <LbcSymbol postfix={'200'} size={14} />
+              </div>
+            </>
+          ) : (
+            <FilePrice uri={normalizeURI(uri)} type="filepage" />
+          )
+        }
         body={
           <React.Fragment>
             <ClaimInsufficientCredits uri={uri} />

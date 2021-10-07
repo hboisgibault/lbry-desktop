@@ -19,11 +19,11 @@ type Props = {
   doCommentSocketConnect: (string, string) => void,
   doCommentSocketDisconnect: (string) => void,
   doCommentList: (string, string, number, number) => void,
-  comments: Array<Comment>,
-  pinnedComments: Array<Comment>,
+  comments: any,
+  pinnedComments: any,
   fetchingComments: boolean,
   doSuperChatList: (string) => void,
-  superChats: Array<Comment>,
+  superChats: any,
   myChannels: ?Array<ChannelClaim>,
 };
 
@@ -55,9 +55,11 @@ export default function LivestreamComments(props: Props) {
   const [showPinned, setShowPinned] = React.useState(true);
   const claimId = claim && claim.claim_id;
   const commentsLength = commentsByChronologicalOrder && commentsByChronologicalOrder.length;
+  const [testStickers, setTestStickers] = React.useState([]);
 
   // which kind of superchat to display, either
   const commentsToDisplay = viewMode === VIEW_MODE_CHAT ? commentsByChronologicalOrder : superChatsByTipAmount;
+  const [testComments, setTestComments] = React.useState(commentsToDisplay);
 
   const discussionElement = document.querySelector('.livestream__comments');
 
@@ -68,6 +70,18 @@ export default function LivestreamComments(props: Props) {
       discussionElement.scrollTop = 0;
     }
   }
+
+  React.useEffect(() => {
+    if (commentsToDisplay.length > 0) {
+      if (testComments.length > 0) {
+        if (commentsToDisplay.length > testComments.length - testStickers.length) {
+          setTestComments([commentsToDisplay[0], ...testComments]);
+        }
+      } else {
+        setTestComments(commentsToDisplay);
+      }
+    }
+  }, [commentsToDisplay, testComments, testStickers.length]);
 
   React.useEffect(() => {
     if (claimId) {
@@ -139,10 +153,10 @@ export default function LivestreamComments(props: Props) {
     const clonedSuperchats = JSON.parse(JSON.stringify(superChatsByTipAmount));
 
     // for top to bottom display, oldest superchat on top most recent on bottom
-    superChatsReversed = clonedSuperchats
-      .sort((a, b) => {
-        return b.timestamp - a.timestamp;
-      }); }
+    superChatsReversed = clonedSuperchats.sort((a, b) => {
+      return b.timestamp - a.timestamp;
+    });
+  }
 
   // todo: implement comment_list --mine in SDK so redux can grab with selectCommentIsMine
   function isMyComment(channelId: string) {
@@ -262,13 +276,14 @@ export default function LivestreamComments(props: Props) {
           {!fetchingComments && commentsByChronologicalOrder.length > 0 ? (
             <div className="livestream__comments">
               {viewMode === VIEW_MODE_CHAT &&
-                commentsToDisplay.map((comment) => (
+                testComments.map((comment, index) => (
                   <LivestreamComment
-                    key={comment.comment_id}
+                    key={index}
                     uri={uri}
                     authorUri={comment.channel_url}
                     commentId={comment.comment_id}
                     message={comment.comment}
+                    sticker={comment.sticker}
                     supportAmount={comment.support_amount}
                     isModerator={comment.is_moderator}
                     isGlobalMod={comment.is_global_mod}
@@ -310,7 +325,18 @@ export default function LivestreamComments(props: Props) {
           )}
 
           <div className="livestream__comment-create">
-            <CommentCreate livestream bottom embed={embed} uri={uri} onDoneReplying={restoreScrollPos} />
+            <CommentCreate
+              livestream
+              bottom
+              embed={embed}
+              uri={uri}
+              onDoneReplying={restoreScrollPos}
+              testStickers={testStickers}
+              setTestStickers={(v) => {
+                setTestStickers([...testStickers, v.sticker]);
+                setTestComments([v, ...testComments]);
+              }}
+            />
           </div>
         </div>
       </>
