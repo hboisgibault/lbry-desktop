@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
 import { selectSubscriptions } from 'redux/selectors/subscriptions';
-import { selectPurchaseUriSuccess, doClearPurchasedUriSuccess } from 'lbry-redux';
+import { doClearPurchasedUriSuccess } from 'redux/actions/file';
 import { selectFollowedTags } from 'redux/selectors/tags';
 import { selectUserVerifiedEmail, selectUser } from 'redux/selectors/user';
 import { selectHomepageData, selectLanguage } from 'redux/selectors/settings';
 import { doSignOut } from 'redux/actions/app';
 import { selectUnseenNotificationCount } from 'redux/selectors/notifications';
+import { selectPurchaseUriSuccess } from 'redux/selectors/claims';
 
 import SideNavigation from './view';
 

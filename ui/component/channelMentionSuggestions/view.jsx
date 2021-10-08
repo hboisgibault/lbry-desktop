@@ -1,7 +1,7 @@
 // @flow
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList } from '@reach/combobox';
 import { Form } from 'component/common/form';
-import { parseURI, regexInvalidURI } from 'lbry-redux';
+import { parseURI, regexInvalidURI } from 'util/lbryURI';
 import { SEARCH_OPTIONS } from 'constants/search';
 import * as KEYCODES from 'constants/keycodes';
 import ChannelMentionSuggestion from 'component/channelMentionSuggestion';

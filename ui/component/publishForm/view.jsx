@@ -10,7 +10,9 @@
 
 import { SITE_NAME, ENABLE_NO_SOURCE_CLAIMS, SIMPLE_SITE, CHANNEL_STAKED_LEVEL_LIVESTREAM } from 'config';
 import React, { useEffect, useState } from 'react';
-import { buildURI, isURIValid, isNameValid, THUMBNAIL_STATUSES, Lbry } from 'lbry-redux';
+import Lbry from 'lbry';
+import { buildURI, isURIValid, isNameValid } from 'util/lbryURI';
+import * as THUMBNAIL_STATUSES from 'constants/thumbnail_upload_statuses';
 import Button from 'component/button';
 import ChannelSelect from 'component/channelSelector';
 import classnames from 'classnames';

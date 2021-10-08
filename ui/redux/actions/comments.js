@@ -3,15 +3,10 @@ import * as ACTIONS from 'constants/action_types';
 import * as REACTION_TYPES from 'constants/reactions';
 import * as PAGES from 'constants/pages';
 import { SORT_BY, BLOCK_LEVEL } from 'constants/comment';
-import {
-  Lbry,
-  parseURI,
-  buildURI,
-  selectClaimsByUri,
-  selectMyChannelClaims,
-  isURIEqual,
-  doClaimSearch,
-} from 'lbry-redux';
+import Lbry from 'lbry';
+import { parseURI, buildURI, isURIEqual } from 'util/lbryURI';
+import { selectClaimsByUri, selectMyChannelClaims } from 'redux/selectors/claims';
+import { doClaimSearch } from 'redux/actions/claims';
 import { doToast, doSeeNotifications } from 'redux/actions/notifications';
 import {
   makeSelectMyReactionsForComment,

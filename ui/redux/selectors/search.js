@@ -3,15 +3,15 @@ import { getSearchQueryString } from 'util/query-params';
 import { selectShowMatureContent } from 'redux/selectors/settings';
 import { SEARCH_OPTIONS } from 'constants/search';
 import {
-  parseURI,
   selectClaimsByUri,
   makeSelectClaimForUri,
   makeSelectClaimForClaimId,
   makeSelectClaimIsNsfw,
-  isClaimNsfw,
   makeSelectPendingClaimForUri,
   makeSelectIsUriResolving,
-} from 'lbry-redux';
+} from 'redux/selectors/claims';
+import { parseURI } from 'util/lbryURI';
+import { isClaimNsfw } from 'util/claim';
 import { createSelector } from 'reselect';
 import { createNormalizedSearchKey, getRecommendationSearchOptions } from 'util/search';
 import { selectMutedChannels } from 'redux/selectors/blocked';

@@ -4,7 +4,7 @@ import * as CS from 'constants/claim_search';
 import React from 'react';
 import Card from 'component/common/card';
 import ClaimPreview from 'component/claimPreview';
-import { Lbry } from 'lbry-redux';
+import Lbry from 'lbry';
 import { useHistory } from 'react-router';
 import { formatLbryUrlForWeb } from 'util/url';
 

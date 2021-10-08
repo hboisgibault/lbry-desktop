@@ -1,6 +1,6 @@
 // @flow
 import * as ACTIONS from 'constants/action_types';
-import { doClaimSearch } from 'lbry-redux';
+import { doClaimSearch } from 'redux/actions/claims';
 import { LIVESTREAM_LIVE_API } from 'constants/livestream';
 
 export const doFetchNoSourceClaims = (channelId: string) => async (dispatch: Dispatch, getState: GetState) => {

@@ -4,7 +4,7 @@ import { v4 as Uuidv4 } from 'uuid';
 import { parseURI, SETTINGS, makeSelectClaimForUri } from 'lbry-redux';
 import { selectPlayingUri, selectPrimaryUri } from 'redux/selectors/content';
 import { makeSelectClientSetting, selectDaemonSettings } from 'redux/selectors/settings';
-import { history } from './store';
+import { history } from 'ui/store';
 
 const recsysEndpoint = 'https://clickstream.odysee.com/log/video/view';
 const recsysId = 'lighthouse-v0';
