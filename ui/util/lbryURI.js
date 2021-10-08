@@ -60,7 +60,7 @@ export function parseURI(url: string, requireProto: boolean = false): LbryUrlObj
     streamNameOrChannelName,
     primaryModSeparator,
     primaryModValue,
-    // pathSep,
+    pathSep, // eslint-disable-line no-unused-vars
     possibleStreamName,
     secondaryModSeparator,
     secondaryModValue,
