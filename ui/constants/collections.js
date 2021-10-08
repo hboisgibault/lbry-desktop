@@ -1,7 +1,7 @@
-// in repo constants for collections ui
+// ui
 export const ICON_SIZE = 12;
 
-// redux
+// see which of these are used
 export const COLLECTION_ID = 'lid';
 export const COLLECTION_INDEX = 'linx';
 
