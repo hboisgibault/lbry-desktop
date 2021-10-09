@@ -61,6 +61,7 @@ function TxoList(props: Props) {
 
   const [accountTransactionResponse, setAccountTransactionResponse] = React.useState([]);
   const [customerTransactions, setCustomerTransactions] = React.useState([]);
+  const [showFees, setShowFees] = React.useState(false);
 
   function getPaymentHistory() {
     return Lbryio.call(
@@ -304,6 +305,13 @@ function TxoList(props: Props) {
     return `?${newUrlParams.toString()}`;
   }
 
+  function onShowFees(toggleShowFees: Boolean) {
+    setShowFees(toggleShowFees);
+    if (toggleShowFees) {
+      fetchTransactions();
+    }
+  }
+
   const paramsString = JSON.stringify(params);
 
   useEffect(() => {
@@ -312,6 +320,10 @@ function TxoList(props: Props) {
       updateTxoPageParams(params);
     }
   }, [paramsString, updateTxoPageParams]);
+
+  useEffect(() => {
+    console.log(txoPage);
+  }, [trans]);
 
   return (
     <Card
@@ -351,7 +363,7 @@ function TxoList(props: Props) {
           <div>
             {/* LBC transactions section */}
             <div className="card__body-actions">
-              <div className="card__actions card__actions--between">
+              <div className="card__actions card__actions--between section__actions--align-bottom">
                 <div className="card__actions--inline">
                   <div>
                     {/* LBC transaction type dropdown */}
@@ -441,6 +453,13 @@ function TxoList(props: Props) {
                   {!isFetchingTransactions && transactionsFile === null && (
                     <label>{<span className="error__text">{__('Failed to process fetched data.')}</span>}</label>
                   )}
+                  <FormField
+                    type="checkbox"
+                    name="show_fees"
+                    label={__('Show fees')}
+                    checked={showFees}
+                    onChange={() => onShowFees(!showFees)}
+                  />
                   <div className="txo__export">
                     <FileExporter
                       data={transactionsFile}

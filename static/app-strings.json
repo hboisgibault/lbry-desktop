@@ -110,6 +110,7 @@
   "Balance": "Balance",
   "Full History": "Full History",
   "Refresh": "Refresh",
+  "Show fees": "Show fees",
   "Send LBRY Credits to your friends or favorite creators.": "Send LBRY Credits to your friends or favorite creators.",
   "Amount": "Amount",
   "Recipient address": "Recipient address",
@@ -2184,5 +2185,9 @@
   "From comments": "From comments",
   "From search": "From search",
   "Manage tags": "Manage tags",
+  "Récupération des données": "Récupération des données",
+  "Les contenus les plus populaires aujourd'hui": "Les contenus les plus populaires aujourd'hui",
+  "Nouveautés de @lbry": "Nouveautés de @lbry",
+  "Les chaînes les plus populaires sur LBRY": "Les chaînes les plus populaires sur LBRY",
   "--end--": "--end--"
 }

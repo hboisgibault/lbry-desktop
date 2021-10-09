@@ -1,7 +1,7 @@
 // @flow
 import * as MODALS from 'constants/modal_types';
 import React from 'react';
-import TxoListItem from 'component/transactionListTableItem';
+import TransactionListTableItem from 'component/transactionListTableItem';
 import Spinner from 'component/spinner';
 import LbcSymbol from 'component/common/lbc-symbol';
 
@@ -45,7 +45,7 @@ function TransactionListTable(props: Props) {
             <tbody>
               {txos &&
                 txos.map((t, i) => (
-                  <TxoListItem
+                  <TransactionListTableItem
                     key={`${t.txid}:${t.nout}-${i}`}
                     txo={t}
                     reward={rewards && rewards[t.txid]}

@@ -76,6 +76,7 @@ class TransactionListTableItem extends React.PureComponent<Props, State> {
 
     const {
       amount,
+      fee,
       claim_id: claimId,
       normalized_name: txoListName,
       timestamp,
@@ -161,6 +162,11 @@ class TransactionListTableItem extends React.PureComponent<Props, State> {
             precision={8}
             showLBC={false}
           />
+          {fee && (
+            <div className="table__item-label">
+              <span>{fee}</span>
+            </div>
+          )}
         </td>
       </tr>
     );
